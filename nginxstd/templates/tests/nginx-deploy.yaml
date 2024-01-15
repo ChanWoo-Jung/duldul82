@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.domain_name }}-nginx-deploy
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.domain_name }}-nginx
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.domain_name }}-nginx
+    spec:
+      containers:
+        - name: {{ .Values.domain_name }}-nginx
+          image: {{ .Values.container.image_name | default "nginx:1.14.2" }}
+          resources:
+            requests:
+              memory: {{ .Values.container.request_memory | default "50Mi" | quote }}
+              cpu: "100m"
+            {{ if eq .Values.container.use_limit "yes" }}
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+            {{ end }}
+          ports:
+            - containerPort: {{ .Values.container.port }}

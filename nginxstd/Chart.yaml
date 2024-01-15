@@ -1,0 +1,6 @@
+apiVersion: v2
+name: nginxstd
+description: Nginx Standard for
+type: application
+version: 0.9.0
+appVersion: "1.14.2"

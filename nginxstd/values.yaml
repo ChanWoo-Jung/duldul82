@@ -1,0 +1,10 @@
+domain_name: cwave
+container:
+  image_name: nginx:1.14.3
+  port: 80
+  request_memory: "50Mi"
+  use_limit: "no"
+service:
+  type: LoadBalancer
+  port: 80
+  target_port: 80
